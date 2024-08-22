@@ -1,0 +1,36 @@
+---
+title: "EDS-221-day9b"
+author: "Maddy enda"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+#loading lizards
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(here)
+
+
+lizards <- read_csv(here("data_tidy", "lizards.csv"))
+```
+
+```{r}
+two_lizards <- lizards %>%
+  filter(common_name %in% c("eastern fence", "western whiptail"))
+
+ggplot(data= two_lizards, aes(x=total_length, y= weight)) +
+  geom_point(aes(color= common_name)) +
+  scale_color_manual(values= c("orange", "navy"),
+                     name= "Lizard Species",
+                     labels= c("Eastern fence lizard", "Western whiptail lizard")) +
+  theme_minimal() +
+  theme(legend.position= c(0.2, 0.8),
+        legend.background= element_blank()) +
+  labs(x= "Total length (mm)",
+       y= "Weight (grams)") 
+```
+
